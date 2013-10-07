@@ -101,40 +101,24 @@ function updateLocations()
 	return newOpenLocations;
 }
 
-function locationUpdater($scope, $timeout)
-{
-	
-	//$scope.locations = updateLocations();
 
-	// var timer = function() 
-	// {
-	// 	var newLocations = updateLocations();
-		
-	// 	if (!_.isEqual(newLocations, $scope.locations))
-	// 	{
-	// 		$scope.locations = newLocations;
-	// 		console.log($scope.locations + "\n" + newLocations)
-	// 	}
-		
-	// 	$scope.timeAndDay = getTimeAndDay();
-	// 	$timeout(timer, 500);
-	// } 
-
-	var clock = function()
-	{
-		$scope.timeAndDay = getTimeAndDay();
-		$timeout(clock, 1000);
-	}
-	clock();
-
-	var locationChangeChecker = function()
-	{
-		$scope.locations = updateLocations();
-		$timeout(locationChangeChecker, 1000);
-	}
-	locationChangeChecker();
-
-}
 
 var urHungryApp = angular.module('urHungryApp', []);
-urHungryApp.controller('locationUpdater', locationUpdater);
+
+urHungryApp.controller('LocationUpdaterController', 
+	['$scope', '$timeout', function($scope, $timeout) {
+		
+		var updateClock = function()
+		{
+			$scope.timeAndDay = getTimeAndDay();
+			$timeout(updateClock, 1000);
+		}
+		updateClock();
+
+		var updateOpenLocations = function()
+		{
+			$scope.locations = updateLocations();
+			$timeout(updateOpenLocations, 1000);
+		}
+		updateOpenLocations();
+}]);

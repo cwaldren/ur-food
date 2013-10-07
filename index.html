@@ -24,22 +24,25 @@
 
 
 </head>
-<body ng-controller="locationUpdater">
+<body ng-controller="LocationUpdaterController">
 
 <div class="row small-centered" id="header">
   <h1 ng-cloak>What's Open at {{timeAndDay}}?</h1>
 </div>
 
 <div class="row small-centered" id="locations">
-  
-  
-
+  <!--
   <div ng-cloak class="location" ng-repeat="location in locations">
     <h2>{{location.name}}</h2>
     <h4>'till {{location.close}}</h4>
     <p>{{location.simpleMenu}}</p>
   </div>
+  -->
 
+    <div ng-cloak class="location" ng-repeat="testItem in testItems">
+      <h2>{{test.name}}</h2>
+      <h4>{{test.value}}</h4>
+     </div>
 </div>
   
 
