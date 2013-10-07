@@ -1,0 +1,31 @@
+@import url(http://fonts.googleapis.com/css?family=Lobster);
+
+body {
+	background-color:#DFE2DB;
+	color:#191919;
+}
+#header h1, h2 {
+	text-align: center;
+	font-family: 'Lobster', cursive;
+
+}
+
+.location h2, h4 {
+	font-family: 'Lobster', cursive;
+	margin-bottom: 0px;
+	margin-top:0px;
+}
+
+.location h2
+{
+	color: #4A96AD
+}
+
+.location p {
+	font-family: 'Lobster', cursive;
+
+}
+.location {
+	margin-bottom:15px;
+	text-align: center;
+}
