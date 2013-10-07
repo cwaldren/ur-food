@@ -88,6 +88,11 @@ function updateLocations()
 					//console.log(loc)
 				}
 			}
+
+			if (openLocations.length == 0)
+			{
+				openLocations.push(new Location("Nothing", "you die of hunger o' clock", "air"));
+			}
 			}
 		
 		}
