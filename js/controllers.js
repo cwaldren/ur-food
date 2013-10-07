@@ -118,7 +118,7 @@ urHungryApp.controller('LocationUpdaterController',
 		var updateOpenLocations = function()
 		{
 			$scope.locations = updateLocations();
-			$timeout(updateOpenLocations, 1000);
+			$timeout(updateOpenLocations, 1000*60);
 		}
 		updateOpenLocations();
 }]);
