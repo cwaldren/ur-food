@@ -1,5 +1,9 @@
-@import url(http://fonts.googleapis.com/css?family=Lobster);
 
+
+@import url(http://fonts.googleapis.com/css?family=Lobster);
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
 body {
 	background-color:#DFE2DB;
 	color:#191919;

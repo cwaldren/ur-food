@@ -29,24 +29,24 @@ function Location(name, close, simpleMenu)
 	this.name = name;
 	this.close = close;
 	this.simpleMenu = simpleMenu;
-	this.equals = function(other) {
-		return other.name == this.name;
-	};
+	// this.equals = function(other) {
+	// 	return other.name == this.name;
+	// };
 }
 
-function contains(arr, obj) {
-	var i = arr.length;
-	while (i--) {
-		if (arr[i].equals(obj)) {
-			return true;
-		}
-	}
-	return false;
-}
+// function contains(arr, obj) {
+// 	var i = arr.length;
+// 	while (i--) {
+// 		if (arr[i].equals(obj)) {
+// 			return true;
+// 		}
+// 	}
+// 	return false;
+// }
 
 function updateLocations()
 {
-	var openLocations = [];
+	var newOpenLocations = [];
 	var today = moment().format("dddd");
 	var inputDay;
 	if (today == "Monday" || today == "Tuesday" || today == "Wednesday" || today == "Thursday")
@@ -57,6 +57,7 @@ function updateLocations()
 	{
 		inputDay = today;
 	}
+
 	
 	for (var loc = 0; loc < dininghours.length; loc++)
 	{
@@ -81,9 +82,9 @@ function updateLocations()
 					//console.log(dininghours[loc].days[day])
 					var name = dininghours[loc].name;
 					var goodloc = new Location(name, theTime.close, theTime.what);
-					if (!contains(openLocations, goodloc))
+					if (!_.contains(newOpenLocations, goodloc))
 					{
-						openLocations.push(goodloc);
+						newOpenLocations.push(goodloc);
 					}
 				}
 
@@ -92,34 +93,46 @@ function updateLocations()
 		}	
 
 	}
-
-	if (openLocations.length === 0)
+	
+	if (newOpenLocations.length === 0)
 	{
-		openLocations.push(new Location("Nothing", "you die of hunger o' clock", "serving air"));
+		newOpenLocations.push(new Location("Nothing", "you die of hunger o' clock", "serving air"));
 	}
-
-	return openLocations;
+	return newOpenLocations;
 }
 
 function locationUpdater($scope, $timeout)
 {
-	$scope.timeAndDay = getTimeAndDay();
-	$scope.locations = updateLocations();
-
-	var timer = function() 
-	{
-		var newLocations = updateLocations();
-		
-		if (newLocations != $scope.locations) 
-		{
-			$scope.locations = updateLocations();
-		}
-		
-		$scope.timeAndDay = getTimeAndDay();
-		$timeout(timer, 500);
-	} 
 	
-	timer();
+	//$scope.locations = updateLocations();
+
+	// var timer = function() 
+	// {
+	// 	var newLocations = updateLocations();
+		
+	// 	if (!_.isEqual(newLocations, $scope.locations))
+	// 	{
+	// 		$scope.locations = newLocations;
+	// 		console.log($scope.locations + "\n" + newLocations)
+	// 	}
+		
+	// 	$scope.timeAndDay = getTimeAndDay();
+	// 	$timeout(timer, 500);
+	// } 
+
+	var clock = function()
+	{
+		$scope.timeAndDay = getTimeAndDay();
+		$timeout(clock, 1000);
+	}
+	clock();
+
+	var locationChangeChecker = function()
+	{
+		$scope.locations = updateLocations();
+		$timeout(locationChangeChecker, 1000);
+	}
+	locationChangeChecker();
 
 }
 
