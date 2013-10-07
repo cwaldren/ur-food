@@ -1,5 +1,3 @@
-
-
 function getTimeAndDay()
 {
 
@@ -13,7 +11,7 @@ function getTimeAndDay()
 		timeOfDay = " an early " +  day + " morning";
 	}
 	else if (currentHour < 12) {
-		timeOfDay =  day + " morning";
+		timeOfDay =  " a "+day + " morning";
 	}
 	else if (currentHour < 18) {
 		timeOfDay =  " a "+day + " afternoon";
@@ -65,12 +63,13 @@ function updateLocations()
 		
 		for (var time = 0; time < dininghours[loc].days[inputDay].times.length; time++) 
 		{
+		if (dininghours[loc].days[inputDay].times[time].what != "closed"){
 			
 			var theTime = dininghours[loc].days[inputDay].times[time];
 			var close = moment(theTime.close, "hhmma");
 			var open = moment(theTime.open, "hhmma");
 			console.log("timeslot: "+time+"location:"+dininghours[loc].name+" and thing:" + dininghours[loc].days[inputDay].times[time].what)
-			if (open.hour() > close.hour() && open.hour() != 12)
+			if (open.hour() > close.hour())
 			{
 				close.add('h', 24);
 			}
@@ -79,6 +78,7 @@ function updateLocations()
 			
 			if (range.contains(moment()))
 			{
+                                if (theTime.close == "11:59pm") {theTime.close = "midnight";}
 				//console.log(dininghours[loc].days[day])
 				var name = dininghours[loc].name;
 				var goodloc = new Location(name, theTime.close, theTime.what);
@@ -87,6 +87,7 @@ function updateLocations()
 					openLocations.push(goodloc);
 					//console.log(loc)
 				}
+			}
 			}
 		
 		}
@@ -114,7 +115,7 @@ function locationUpdater($scope, $timeout)
 	var timer = function(){
 		$scope.timeAndDay = getTimeAndDay();
 		$scope.locations = updateLocations();
-		$timeout(timer, 100);
+		$timeout(timer, 500);
 	} 
 	
 	timer();
