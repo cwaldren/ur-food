@@ -58,11 +58,20 @@ function updateLocations()
 				var theTime = dininghours[loc].days[inputDay].times[time];
 				var close = moment(theTime.close, "hhmma");
 				var open = moment(theTime.open, "hhmma");
+			
 
 				if (open.hour() > close.hour())
 				{
-					close.add('h', 24);
+					if (moment().hour() < open.hour())
+					{
+						open.add('d', -1);
+					}
+					else
+					{
+						close.add('d', 1);
+					}
 				}
+					console.log(dininghours[loc].name+" open: "+open.toString()+" close: "+close.toString())
 				var range = moment().range(open, close);
 
 				if (range.contains(moment()))
