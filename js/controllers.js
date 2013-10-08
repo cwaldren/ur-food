@@ -24,25 +24,14 @@ function getTimeAndDay()
 	return moment().format("h:mm") + " on " + timeOfDay;
 }
 
-function Location(name, close, simpleMenu)
+function Location(name, close, simpleMenu, liveMenu)
 {
 	this.name = name;
 	this.close = close;
 	this.simpleMenu = simpleMenu;
-	// this.equals = function(other) {
-	// 	return other.name == this.name;
-	// };
+	this.liveMenu = liveMenu;
 }
 
-// function contains(arr, obj) {
-// 	var i = arr.length;
-// 	while (i--) {
-// 		if (arr[i].equals(obj)) {
-// 			return true;
-// 		}
-// 	}
-// 	return false;
-// }
 
 function updateLocations()
 {
@@ -79,9 +68,9 @@ function updateLocations()
 				if (range.contains(moment()))
 				{
 					if (theTime.close == "11:59pm") {theTime.close = "midnight";}
-					//console.log(dininghours[loc].days[day])
+					var liveMenu = dininghours[loc].menu;
 					var name = dininghours[loc].name;
-					var goodloc = new Location(name, theTime.close, theTime.what);
+					var goodloc = new Location(name, theTime.close, theTime.what, liveMenu);
 					if (!_.contains(newOpenLocations, goodloc))
 					{
 						newOpenLocations.push(goodloc);
@@ -96,7 +85,7 @@ function updateLocations()
 	
 	if (newOpenLocations.length === 0)
 	{
-		newOpenLocations.push(new Location("Nothing", "you die of hunger o' clock", "serving air"));
+		newOpenLocations.push(new Location("Nothing", "you die of hunger o' clock", "serving air", true));
 	}
 	return newOpenLocations;
 }
