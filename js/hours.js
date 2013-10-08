@@ -1,6 +1,6 @@
 var dininghours = 
   [
-    {name: 'Danforth', days: {
+    {name: 'Danforth',  menu: true, days: {
 		
     		'Monday-Thursday': {times:
 			[ 
@@ -56,7 +56,7 @@ var dininghours =
     	
 	}},
 
-	 {name: 'Douglass', days: {
+	 {name: 'Douglass', menu:true, days: {
 		
     		'Monday-Thursday' : {times:
 			[ 
@@ -83,7 +83,7 @@ var dininghours =
     	
 	}},
 
-	{name: 'The Pit', days: {
+	{name: 'The Pit', menu: true, days: {
 		
     		'Monday-Thursday' : {times:
 			[ 

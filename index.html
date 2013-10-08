@@ -35,7 +35,7 @@
   <div ng-cloak class="location" ng-repeat="location in locations">
     <h2>{{location.name}}</h2>
     <h4>'till {{location.close}}</h4>
-    <p>{{location.simpleMenu}}</p>
+    <p>{{location.simpleMenu}} <a data-tooltip class="has-tip" title="Coming Soon :)" ng-show="location.liveMenu"> - live menu</a></p>
   </div>
   
 <!-- 
