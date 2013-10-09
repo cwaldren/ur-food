@@ -61,9 +61,9 @@ function getMenuItems($location)
 
 }
 
-if (isset($_POST['location']))
+if (isset($_GET['location']))
 {
-	getMenuItems(strip_tags($_POST['location']));
+	getMenuItems(strip_tags($_GET['location']));
 }
 
 ?>

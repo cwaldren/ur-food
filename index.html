@@ -6,6 +6,7 @@
   
   <link rel="stylesheet" href="css/foundation.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animate-custom.css">
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.2.1/moment.min.js"></script>
@@ -35,7 +36,18 @@
   <div ng-cloak class="location" ng-repeat="location in locations">
     <h2>{{location.name}}</h2>
     <h4>'till {{location.close}}</h4>
-    <p>{{location.simpleMenu}} <a data-tooltip class="has-tip" title="Coming Soon :)" ng-show="location.liveMenu"> - live menu</a></p>
+    <p>{{location.simpleMenu}} <a href="#{{location.name}}" class="noHighlight" ng-show="location.liveMenu" ng-click="location.showMenu = !location.showMenu"> - live menu</a></p>
+
+    <div id="{{location.name}}" class="menu animated fadeInDown" ng-show="location.showMenu">
+      <p>-------- .:<strong>Menu</strong>:. --------</p>
+        <div ng-repeat="menuSection in location.menu">
+          <h2>{{menuSection.name}}</h2>
+          <ul>
+            <li ng-repeat="menuItem in menuSection.submenu">- {{menuItem}} -</li>
+          </ul>
+        </div>
+      <p>------------<a ng-click="location.showMenu = !location.showMenu">close</a>------------</p>
+    </div>
   </div>
   
 <!-- 

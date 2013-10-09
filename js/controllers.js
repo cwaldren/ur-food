@@ -30,6 +30,7 @@ function Location(name, close, simpleMenu, liveMenu)
 	this.close = close;
 	this.simpleMenu = simpleMenu;
 	this.liveMenu = liveMenu;
+	this.showMenu = false;
 }
 
 
@@ -71,7 +72,7 @@ function updateLocations()
 						close.add('d', 1);
 					}
 				}
-					console.log(dininghours[loc].name+" open: "+open.toString()+" close: "+close.toString())
+					//console.log(dininghours[loc].name+" open: "+open.toString()+" close: "+close.toString())
 				var range = moment().range(open, close);
 
 				if (range.contains(moment()))
@@ -103,8 +104,23 @@ function updateLocations()
 
 var urHungryApp = angular.module('urHungryApp', []);
 
+urHungryApp.factory('fetchMenuService', ['$http', function($http){
+	return {
+		fetchMenu: function(name) {
+			return $http.get(
+				'php/fetchMenu.php', {
+					params: {location: name}
+				})
+				.then(function(result){
+					return result.data;
+			})
+		}
+	}
+}]);
+
+
 urHungryApp.controller('LocationUpdaterController', 
-	['$scope', '$timeout', function($scope, $timeout) {
+	['$scope', '$timeout', 'fetchMenuService', function($scope, $timeout, fetchMenuService) {
 		
 		var updateClock = function()
 		{
@@ -119,4 +135,22 @@ urHungryApp.controller('LocationUpdaterController',
 			$timeout(updateOpenLocations, 1000*60);
 		}
 		updateOpenLocations();
+//var test = [{"name":"bistro home zone","submenu":["sauteed zucchini & yellow squash","mashed potatoes","rotisserie-style chicken"]},{"name":"deli\/change","submenu":["grilled cheese sandwich"]},{"name":"dessert","submenu":["caramel apple waffle ","chocolate chip cookie","oatmeal raisin cookie"]},{"name":"hibachi grill","submenu":["omelet station"]},{"name":"produce market","submenu":["salad bar "]},{"name":"saute","submenu":["chicken rice noodle salad "]},{"name":"soup","submenu":["pork and white bean chili ","sweet tomato soup","lentil vegetable soup"]},{"name":"vegan","submenu":["asian sesame gemelli ","gardenburger"]}];
+		for (var i = 0; i < $scope.locations.length; i++)
+		{
+
+			if ($scope.locations[i].liveMenu)
+			{
+				var x = i;
+				fetchMenuService.fetchMenu($scope.locations[i].name).then(function(data){
+					console.log($scope.locations[x])
+					$scope.locations[x].menu =data;
+				})
+
+				
+			}
+		}
+
+
+
 }]);
