@@ -135,17 +135,20 @@ urHungryApp.controller('LocationUpdaterController',
 		{
 			$scope.locations = updateLocations();
 			//mad code duplication I know
-			for (var i = 0; i < $scope.locations.length; i++)
+			
+			for (i = 0; i < $scope.locations.length; i++)
 			{
 
 			if ($scope.locations[i].liveMenu)
 			{
-				var x = i;
-				fetchMenuService.fetchMenu($scope.locations[i].name).then(function(data){
-					console.log($scope.locations[x])
-					$scope.locations[x].menu =data;
-				})
+			
 
+				// fetchMenuService.fetchMenu($scope.locations[i].name).then(function(data){
+				// 	console.log($scope.locations)
+				// 	console.log(i)
+				// 	$scope.locations[i].menu =data;
+				// })
+				$scope.locations[i].menu = fetchMenuService.fetchMenu($scope.locations[i].name);
 				
 			}
 			}
@@ -154,21 +157,6 @@ urHungryApp.controller('LocationUpdaterController',
 		updateOpenLocations();
 		
 		
-
-		for (var i = 0; i < $scope.locations.length; i++)
-		{
-
-			if ($scope.locations[i].liveMenu)
-			{
-				var x = i;
-				fetchMenuService.fetchMenu($scope.locations[i].name).then(function(data){
-					console.log($scope.locations[x])
-					$scope.locations[x].menu =data;
-				})
-
-				
-			}
-		}
 
 
 
