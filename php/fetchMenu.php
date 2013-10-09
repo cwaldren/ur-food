@@ -29,6 +29,7 @@ function getLocationID($location)
 function getMenuItems($location, $what)
 {
 	$location = strtolower($location);
+
 	switch ($what)
 	{
 		case 'breakfast':
