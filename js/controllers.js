@@ -95,7 +95,8 @@ function updateLocations()
 	
 	if (newOpenLocations.length === 0)
 	{
-		newOpenLocations.push(new Location("Nothing", "you die of hunger o' clock", "serving air"));
+		var notmuch = [{"name":"air zone","submenu":["sauteed nitrogen & yellow stir-fried oxygen","mashed carbon dioxide","rotisserie-style helium"]},{"name":"deli","submenu":["miniscule grilled atoms"]},{"name":"dessert","submenu":["caramel apple bacterium","chocolate chip cookie crumb"]}];
+		newOpenLocations.push(new Location("Nothing", "you die of hunger o' clock", "serving air", true, notmuch));
 		//add menu for air
 	}
 	return newOpenLocations;
@@ -109,7 +110,7 @@ urHungryApp.factory('fetchMenuService', ['$http', function($http){
 	return {
 		fetchMenu: function(name) {
 			return $http.get(
-				'http://casey.im/php/fetchMenu.php', {
+				MENU_FETCH_URL, {
 					params: {location: name}
 				})
 				.then(function(result){
@@ -151,7 +152,9 @@ urHungryApp.controller('LocationUpdaterController',
 			$timeout(updateOpenLocations, 1000*60);
 		}
 		updateOpenLocations();
-//var test = [{"name":"bistro home zone","submenu":["sauteed zucchini & yellow squash","mashed potatoes","rotisserie-style chicken"]},{"name":"deli\/change","submenu":["grilled cheese sandwich"]},{"name":"dessert","submenu":["caramel apple waffle ","chocolate chip cookie","oatmeal raisin cookie"]},{"name":"hibachi grill","submenu":["omelet station"]},{"name":"produce market","submenu":["salad bar "]},{"name":"saute","submenu":["chicken rice noodle salad "]},{"name":"soup","submenu":["pork and white bean chili ","sweet tomato soup","lentil vegetable soup"]},{"name":"vegan","submenu":["asian sesame gemelli ","gardenburger"]}];
+		
+		
+
 		for (var i = 0; i < $scope.locations.length; i++)
 		{
 

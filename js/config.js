@@ -1,0 +1,1 @@
+var MENU_FETCH_URL = 'http://casey.im/menuFetch.php';
