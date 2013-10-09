@@ -95,7 +95,8 @@ function updateLocations()
 	
 	if (newOpenLocations.length === 0)
 	{
-		newOpenLocations.push(new Location("Nothing", "you die of hunger o' clock", "serving air", true));
+		newOpenLocations.push(new Location("Nothing", "you die of hunger o' clock", "serving air"));
+		//add menu for air
 	}
 	return newOpenLocations;
 }
@@ -132,6 +133,21 @@ urHungryApp.controller('LocationUpdaterController',
 		var updateOpenLocations = function()
 		{
 			$scope.locations = updateLocations();
+			//mad code duplication I know
+			for (var i = 0; i < $scope.locations.length; i++)
+			{
+
+			if ($scope.locations[i].liveMenu)
+			{
+				var x = i;
+				fetchMenuService.fetchMenu($scope.locations[i].name).then(function(data){
+					console.log($scope.locations[x])
+					$scope.locations[x].menu =data;
+				})
+
+				
+			}
+			}
 			$timeout(updateOpenLocations, 1000*60);
 		}
 		updateOpenLocations();
