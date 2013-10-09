@@ -1,1 +1,1 @@
-var MENU_FETCH_URL = 'http://casey.im/menuFetch.php';
+var MENU_FETCH_URL = 'http://casey.im/php/menuFetch.php';
