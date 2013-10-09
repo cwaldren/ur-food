@@ -108,7 +108,7 @@ urHungryApp.factory('fetchMenuService', ['$http', function($http){
 	return {
 		fetchMenu: function(name) {
 			return $http.get(
-				'php/fetchMenu.php', {
+				'http://casey.im/php/fetchMenu.php', {
 					params: {location: name}
 				})
 				.then(function(result){
