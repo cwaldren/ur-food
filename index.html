@@ -34,19 +34,20 @@
 <div class="row small-centered" id="locations">
   
   <div ng-cloak class="location" ng-repeat="location in locations">
-    <h2>{{location.name}}</h2>
+    <h2 id = "{{location.name}}">{{location.name}}</h2>
     <h4>'till {{location.close}}</h4>
-    <p>{{location.simpleMenu}} <a href="#{{location.name}}" class="noHighlight" ng-show="location.liveMenu" ng-click="location.showMenu = !location.showMenu"> - live menu</a></p>
+    <p>{{location.simpleMenu}} <a href="#{{location.name}}Menu" class="noHighlight" ng-show="location.liveMenu" ng-click="location.showMenu = !location.showMenu"> - live menu</a></p>
 
-    <div id="{{location.name}}" class="menu animated fadeInDown" ng-show="location.showMenu">
+    <div id="{{location.name}}Menu" class="menu animated fadeInDown" ng-show="location.showMenu">
       <p>-------- .:<strong>Menu</strong>:. --------</p>
+        <img ng-show="location.showMenu && !location.menu" src="img/loader.gif"></img>
         <div ng-repeat="menuSection in location.menu">
           <h2>{{menuSection.name}}</h2>
           <ul>
             <li ng-repeat="menuItem in menuSection.submenu">- {{menuItem}} -</li>
           </ul>
         </div>
-      <p>------------<a ng-click="location.showMenu = !location.showMenu">close</a>------------</p>
+      <p>------------<a href="#{{location.name}}" ng-click="location.showMenu = !location.showMenu">close</a>------------</p>
     </div>
   </div>
   

@@ -4,7 +4,7 @@ require 'simple_html_dom.php';
 
 function getLocationID($location)
 {
-	$location = strtolower($location);
+	
 	switch ($location)
 	{
 		case "danforth":
@@ -26,15 +26,45 @@ function getLocationID($location)
 
 
 
-function getMenuItems($location)
+function getMenuItems($location, $what)
 {
-	$location = getLocationID($location);
+	$location = strtolower($location);
+	switch ($what)
+	{
+		case 'breakfast':
+			$what = '#menu1';
+			break;
+		case 'lunch':
+			if ($location == 'danforth' || $location == 'the pit') 
+			{
+				$what = '#menu1';
+			}
+			else if ($location == 'douglass')
+			{
+				$what = '#menu2';
+			}
+			break;
+		case 'dinner':
+			if ($location == 'danforth' || $location == 'the pit')
+			{
+				$what = '#menu2';
+			}
+			else if ($location == 'douglass')
+			{
+				$what = '#menu3';
+			}
+			break;
+		default:
+			$what = '#menu1';
+			break;
+	}
 
+	$location = getLocationID($location);
 	$html = new simple_html_dom();
 	$html->load_file('http://www.campusdish.com/en-US/CSNE/ROCHESTER/Home.htm?LocationID='.$location);
 
 
-	foreach ($html->find('#menu1 tbody tr td a[class="item1"]') as $entryTitle)
+	foreach ($html->find($what .' tbody tr td a[class="item1"]') as $entryTitle)
 	{
 		$menuEntries;
 		$text = strtolower($entryTitle->plaintext);
@@ -61,9 +91,11 @@ function getMenuItems($location)
 
 }
 
-if (isset($_GET['location']))
+
+if (isset($_GET['location']) && isset($_GET['what']))
 {
-	getMenuItems(strip_tags($_GET['location']));
+	//fetchMenu.php?location=danforth&what=lunch
+	getMenuItems(strip_tags($_GET['location']), strip_tags($_GET['what']));
 }
 
 ?>

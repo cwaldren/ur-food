@@ -108,10 +108,10 @@ var urHungryApp = angular.module('urHungryApp', []);
 
 urHungryApp.factory('fetchMenuService', ['$http', function($http){
 	return {
-		fetchMenu: function(name) {
+		fetchMenu: function(name, food) {
 			return $http.get(
 				MENU_FETCH_URL, {
-					params: {location: name}
+					params: {location: name, what: food}
 				})
 				.then(function(result){
 					return result.data;
@@ -148,7 +148,7 @@ urHungryApp.controller('LocationUpdaterController',
 				// 	console.log(i)
 				// 	$scope.locations[i].menu =data;
 				// })
-				$scope.locations[i].menu = fetchMenuService.fetchMenu($scope.locations[i].name);
+				$scope.locations[i].menu = fetchMenuService.fetchMenu($scope.locations[i].name, $scope.locations[i].simpleMenu);
 				
 			}
 			}
