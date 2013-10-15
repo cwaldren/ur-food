@@ -8,6 +8,7 @@
 body {
 	background-color:#DFE2DB;
 	color:#191919;
+	-webkit-font-smoothing: antialiased;
 }
 #header {
 	padding-left:5px;
