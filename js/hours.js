@@ -163,6 +163,8 @@ var dininghours =
 	    	]}	
    		}},
 
+   		
+
    		{name: 'Grab & Go', days: {
 		
     		'Monday-Thursday' : {times:

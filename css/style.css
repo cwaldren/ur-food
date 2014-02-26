@@ -9,6 +9,7 @@ body {
 	background-color:#DFE2DB;
 	color:#191919;
 	-webkit-font-smoothing: antialiased;
+	text-shadow: #fff 0px 1px 1px;
 }
 #header {
 	padding-left:5px;
